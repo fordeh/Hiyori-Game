@@ -6,14 +6,15 @@ namespace PathCreation.Examples {
     [ExecuteInEditMode]
     public class PathPlacer : PathSceneTool {
 
-        public GameObject prefab;
+        public GameObject hoop_prefab;
         public GameObject holder;
-        public float spacing = 3;
-
+        public float spacing;
         const float minSpacing = .1f;
+        public Material[] glow_materials;
+
 
         void Generate () {
-            if (pathCreator != null && prefab != null && holder != null) {
+            if (pathCreator != null && hoop_prefab != null && holder != null) {
                 DestroyObjects ();
 
                 VertexPath path = pathCreator.path;
@@ -24,7 +25,7 @@ namespace PathCreation.Examples {
                 while (dst < path.length) {
                     Vector3 point = path.GetPointAtDistance (dst);
                     Quaternion rot = path.GetRotationAtDistance (dst);
-                    Instantiate (prefab, point, rot, holder.transform);
+                    Instantiate (hoop_prefab, point, rot, holder.transform);
                     dst += spacing;
                 }
             }
@@ -42,5 +43,7 @@ namespace PathCreation.Examples {
                 Generate ();
             }
         }
+
+        // change materials randomly --- rainbow gets highest points
     }
 }
