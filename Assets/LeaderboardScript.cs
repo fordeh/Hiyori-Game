@@ -4,46 +4,63 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LeaderboardScript : MonoBehaviour
+public class LeaderboardEntryScript : MonoBehaviour
 {
 
-    [SerializeField] List<int> score_list;
-    public TextMeshProUGUI player_score;
-    [SerializeField] List<TextMeshProUGUI> _ranks;
-    public int _rank;
-    TextMeshProUGUI score_clone;
-    public Transform content_container;
+    public Transform _contents;
+    private Transform rank_template;
+
+
+    ScoreManagerScript score_script;
     
 
+
+
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        score_script = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+
+        rank_template = _contents.Find("Player rank template");
+
+
+
+
+    }
+
+
+
     void Start()
     {
-        //score_clone = Instantiate(player_score);
-
-        CurrentPlayerRank();
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-    }
-
-    void CurrentPlayerRank()
-    {
-        //score_clone.transform.SetParent(content_container);
-        //score_clone.transform.localScale = player_score.transform.localScale;
-        //score_clone.text = PlayerManagerScript.user_input + "   " + GameManagerScript.final_score.ToString();
-        //_ranks.Add(score_clone); // use player prefs to store value
-        //score_list.Add(GameManagerScript.final_score);
-        //player_score.text = PlayerManagerScript.user_input + "   " + GameManagerScript.final_score.ToString();
-        //DontDestroyOnLoad(player_score);
         
-
     }
 
-    void CalculateRank()
+    public void SetLeaderboard()
     {
-        //score_list.Sort((x,y) => y.CompareTo(x));
+        float rank_length = Mathf.Min(20, score_script.usernames.Count, score_script.user_scores.Count);
+
+
+        for(int i = 0; i < rank_length; i++)
+        {
+            Transform rank_clone = Instantiate(rank_template, _contents);
+            RectTransform rank_RectTransform = rank_clone.GetComponent<RectTransform>();
+            rank_clone.SetParent(_contents);
+            rank_clone.localScale = rank_template.localScale;
+            rank_clone.gameObject.SetActive(true);
+
+
+            int _rank = i + 1;
+            rank_clone.Find("Rank").GetComponent<TextMeshProUGUI>().text = _rank.ToString();
+
+            rank_clone.Find("User").GetComponent<TextMeshProUGUI>().text = score_script.usernames[i];
+            rank_clone.Find("Score").GetComponent<TextMeshProUGUI>().text = score_script.user_scores[i].ToString();
+        }
     }
 }
