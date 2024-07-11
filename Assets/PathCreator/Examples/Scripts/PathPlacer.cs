@@ -11,6 +11,9 @@ namespace PathCreation.Examples {
         public float spacing;
         const float minSpacing = .1f;
         public Material[] glow_materials;
+        public Material prefab_material;
+        public int index;
+        GameObject prefab_clone;
 
 
         void Generate () {
@@ -25,8 +28,17 @@ namespace PathCreation.Examples {
                 while (dst < path.length) {
                     Vector3 point = path.GetPointAtDistance (dst);
                     Quaternion rot = path.GetRotationAtDistance (dst);
-                    Instantiate (hoop_prefab, point, rot, holder.transform);
+
+                    index = Random.Range(0, glow_materials.Length);
+
+                    prefab_material = glow_materials[index];
+
+
+                    prefab_clone = Instantiate (hoop_prefab, point, rot, holder.transform);
                     dst += spacing;
+                    Renderer clone_renderer = prefab_clone.GetComponent<Renderer>();
+                    clone_renderer.material = prefab_material;
+
                 }
             }
         }
