@@ -12,6 +12,10 @@ public class ScoreManagerScript : MonoBehaviour
 
    public List<int> user_scores = new List<int>();
    public List<string> usernames = new List<string>();
+   public List<KeyValuePair<string,int>> rank_list = new List<KeyValuePair<string,int>>();
+ 
+
+
    private static ScoreManagerScript _instance;
 
 
@@ -33,10 +37,6 @@ public class ScoreManagerScript : MonoBehaviour
        }
 
 
-
-
-
-
    }
 
 
@@ -45,6 +45,18 @@ public class ScoreManagerScript : MonoBehaviour
        Debug.Log("Submitted");
        usernames.Add(PlayerManagerScript.user_input);
        user_scores.Add(GameManagerScript.final_score);
+
+       rank_list.Add(new KeyValuePair<string,int>(PlayerManagerScript.user_input,GameManagerScript.final_score));
+
+       SortRanks();
+
+       
+   }
+
+
+   public void SortRanks()
+   {
+        rank_list.Sort((a,b)=>b.Value.CompareTo(a.Value));
    }
 
 

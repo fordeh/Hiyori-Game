@@ -23,10 +23,6 @@ public class LeaderboardEntryScript : MonoBehaviour
         score_script = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
 
         rank_template = _contents.Find("Player rank template");
-
-
-
-
     }
 
 
@@ -59,8 +55,8 @@ public class LeaderboardEntryScript : MonoBehaviour
             int _rank = i + 1;
             rank_clone.Find("Rank").GetComponent<TextMeshProUGUI>().text = _rank.ToString();
 
-            rank_clone.Find("User").GetComponent<TextMeshProUGUI>().text = score_script.usernames[i];
-            rank_clone.Find("Score").GetComponent<TextMeshProUGUI>().text = score_script.user_scores[i].ToString();
+            rank_clone.Find("User").GetComponent<TextMeshProUGUI>().text = score_script.rank_list[i].Key;
+            rank_clone.Find("Score").GetComponent<TextMeshProUGUI>().text = score_script.rank_list[i].Value.ToString();
         }
     }
 }
