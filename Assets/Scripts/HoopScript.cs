@@ -45,17 +45,19 @@ public class HoopScript : MonoBehaviour
         fbScript = game_master.GetComponent<FeedbackScript>();
         gameScript = game_master.GetComponent<GameManagerScript>();
 
+        
+        if(gameObject.name != "nekoHoop")
+        {
+            gameScript._hoops.Add(gameObject);
+        }
+        
 
         
 
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
+    
 
     // if missed, set active = false to prevent exploits
 

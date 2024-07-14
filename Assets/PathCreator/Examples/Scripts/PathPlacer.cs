@@ -1,23 +1,35 @@
 ﻿using PathCreation;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PathCreation.Examples {
 
     [ExecuteInEditMode]
     public class PathPlacer : PathSceneTool {
 
-        public GameObject hoop_prefab;
+        public GameObject hoopPrefab;
         public GameObject holder;
         public float spacing;
         const float minSpacing = .1f;
         public Material[] glow_materials;
-        public Material prefab_material;
-        public int index;
-        GameObject prefab_clone;
+        public Material prefabMaterial;
+        public int indexNumber;
+        GameObject prefabClone;
+        GameManagerScript manager_script;
+
+
+
+
+
+        void Awake()
+        {
+            manager_script = GameObject.Find("GameMaster").GetComponent<GameManagerScript>();
+        }
 
 
         void Generate () {
-            if (pathCreator != null && hoop_prefab != null && holder != null) {
+            if (pathCreator != null && hoopPrefab != null && holder != null) {
                 DestroyObjects ();
 
                 VertexPath path = pathCreator.path;
@@ -29,17 +41,31 @@ namespace PathCreation.Examples {
                     Vector3 point = path.GetPointAtDistance (dst);
                     Quaternion rot = path.GetRotationAtDistance (dst);
 
-                    index = Random.Range(0, glow_materials.Length);
+                    indexNumber = Random.Range(0, glow_materials.Length); // randomly pick #
 
-                    prefab_material = glow_materials[index];
+                    prefabMaterial = glow_materials[indexNumber]; // material = random # of material list
+
+                    prefabClone = Instantiate (hoopPrefab, point, rot, holder.transform); // clone hoop prefab
+
+                    //if(prefabClone != null)
+                    //{
+                        //manager_script._hoops.Add(prefabClone);
+
+                    //}
+                
+                    
+                    
 
 
-                    prefab_clone = Instantiate (hoop_prefab, point, rot, holder.transform);
-                    dst += spacing;
-                    Renderer clone_renderer = prefab_clone.GetComponent<Renderer>();
-                    clone_renderer.material = prefab_material;
+
+                    dst += spacing; // distance from each other = spacing
+                    Renderer clone_renderer = prefabClone.GetComponent<Renderer>(); // access renderer
+                    clone_renderer.material = prefabMaterial; // material of clone prehab = random material
+
 
                 }
+
+                
             }
         }
 
@@ -55,6 +81,8 @@ namespace PathCreation.Examples {
                 Generate ();
             }
         }
+
+
 
         // change materials randomly --- rainbow gets highest points
     }
