@@ -7,7 +7,7 @@ using TMPro;
 public class HoopScript : MonoBehaviour
 {
 
-    public AudioSource sound_effect;
+    AudioSource SoundEffect;
 
 
 
@@ -36,7 +36,7 @@ public class HoopScript : MonoBehaviour
     void Start()
     {
 
-
+        SoundEffect = GameObject.Find("hoopSoundEffect").GetComponent<AudioSource>();
         game_master = GameObject.FindGameObjectWithTag("Game Master");
         _player = GameObject.FindGameObjectWithTag("plane");
         _hoop = gameObject.GetComponent<MeshCollider>();
@@ -46,9 +46,9 @@ public class HoopScript : MonoBehaviour
         gameScript = game_master.GetComponent<GameManagerScript>();
 
         
-        if(gameObject.name != "nekoHoop")
+        if(gameObject.name != "nekoHoop" && gameObject != null)
         {
-            gameScript._hoops.Add(gameObject);
+            gameScript.HoopsList.Add(gameObject);
         }
         
 
@@ -122,15 +122,15 @@ public class HoopScript : MonoBehaviour
 
     void Hit()
     {
-        gameScript._hoops.Remove(gameObject);
-        Destroy(gameObject);
+        gameScript.HoopsList.Remove(gameObject);
 
         fbScript._points = score_per_hoop;
         fbScript.Points();
 
         scoreScript.player_score += score_per_hoop;
 
-        sound_effect.Play();
+        SoundEffect.Play();
+        Destroy(gameObject);
 
     }
 

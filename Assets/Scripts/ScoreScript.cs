@@ -33,7 +33,7 @@ public class ScoreScript : MonoBehaviour
     void Update()
     {
 
-        scoreText.text = player_score.ToString();
+        scoreText.text = "Total Score: " + player_score.ToString();
         
     }
 

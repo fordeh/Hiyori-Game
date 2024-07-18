@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
-    public List<GameObject> _hoops;
+    public List<GameObject> HoopsList;
 
     ScoreScript scoreScript;
 
@@ -36,7 +36,7 @@ public class GameManagerScript : MonoBehaviour
     void Update()
     {
 
-        if(_hoops.Count == 0 || _shiawase.isPlaying == false)
+        if(HoopsList.Count == 0 || _shiawase.isPlaying == false)
         {
             // game ends automatically
             GameEnding();

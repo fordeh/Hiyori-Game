@@ -16,7 +16,7 @@ namespace PathCreation.Examples {
         public Material prefabMaterial;
         public int indexNumber;
         GameObject prefabClone;
-        GameManagerScript manager_script;
+        
 
 
 
@@ -24,7 +24,7 @@ namespace PathCreation.Examples {
 
         void Awake()
         {
-            manager_script = GameObject.Find("GameMaster").GetComponent<GameManagerScript>();
+
         }
 
 
@@ -37,30 +37,29 @@ namespace PathCreation.Examples {
                 spacing = Mathf.Max(minSpacing, spacing);
                 float dst = 0;
 
+
+                
+
                 while (dst < path.length) {
                     Vector3 point = path.GetPointAtDistance (dst);
                     Quaternion rot = path.GetRotationAtDistance (dst);
 
+
                     indexNumber = Random.Range(0, glow_materials.Length); // randomly pick #
 
                     prefabMaterial = glow_materials[indexNumber]; // material = random # of material list
-
+                    
                     prefabClone = Instantiate (hoopPrefab, point, rot, holder.transform); // clone hoop prefab
-
-                    //if(prefabClone != null)
-                    //{
-                        //manager_script._hoops.Add(prefabClone);
-
-                    //}
                 
-                    
-                    
 
+            
 
 
                     dst += spacing; // distance from each other = spacing
                     Renderer clone_renderer = prefabClone.GetComponent<Renderer>(); // access renderer
                     clone_renderer.material = prefabMaterial; // material of clone prehab = random material
+
+                  
 
 
                 }
@@ -78,9 +77,12 @@ namespace PathCreation.Examples {
 
         protected override void PathUpdated () {
             if (pathCreator != null) {
-                Generate ();
+                Generate();
             }
         }
+
+
+
 
 
 
