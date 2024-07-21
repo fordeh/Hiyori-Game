@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Avatar.unity
     guid: 6aa3874c048564cad82e1411c4b14d76
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: f537c234f11244550943637b8b388242
+  - enabled: 1
+    path: Assets/Scenes/Main lobby.unity
+    guid: 35a3edf8e9d1746db8934246860888c3
+  - enabled: 1
+    path: Assets/Scenes/Opening.unity
+    guid: 026c63beb5c074d68aadb796f6f6baae
   m_configObjects: {}

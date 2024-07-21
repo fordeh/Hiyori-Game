@@ -34,6 +34,26 @@ public class ButtonScript : MonoBehaviour
         SceneManager.LoadScene("Avatar");
     }
 
+    public void ExitGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Avatar");
+    }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void ReturnToLobby()
+    {
+        SceneManager.LoadScene("Main lobby");
+    }
+
 }
   
 
